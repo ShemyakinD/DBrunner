@@ -40,8 +40,7 @@ public class XMLizer {
             dom.appendChild(root);
 
             SaveDBXML(dom);
-        }
-        catch (ParserConfigurationException pce){
+        } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
         }
     }
@@ -49,14 +48,14 @@ public class XMLizer {
     public static void writeDBDataToXML() {
         initDBDataToXML();
 
-        createDB(new Database("DB1","localhost:1521/XEPDB1","DIMON", "Q1w2e3r4t5y6",true));
-        createDB(new Database("DB2","localhost:1521/XEPDB2","TECHUSER", "Q1w2e3r4t5y6",true));
-        createDB(new Database("DB3","localhost:1521/XEPDB3","VIEWERUSER", "Q1w2e3r4t5y6",true));
+        createDB(new Database("DB1", "localhost:1521/XEPDB1", "DIMON", "Q1w2e3r4t5y6", true));
+        createDB(new Database("DB2", "localhost:1521/XEPDB2", "TECHUSER", "Q1w2e3r4t5y6", true));
+        createDB(new Database("DB3", "localhost:1521/XEPDB3", "VIEWERUSER", "Q1w2e3r4t5y6", true));
 
     }
 
-//    public static void createDB(String dbName, String dbConnection, String dbUser, String dbPassword){
-    public static void createDB(Database database){
+    //    public static void createDB(String dbName, String dbConnection, String dbUser, String dbPassword){
+    public static void createDB(Database database) {
         Element db;
         Element nested;
         try {
@@ -77,8 +76,7 @@ public class XMLizer {
             dom.getElementsByTagName("Databases").item(0).appendChild(db);
             dom.getDocumentElement().normalize();
             SaveDBXML(dom);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -96,13 +94,12 @@ public class XMLizer {
                 }
             }
             SaveDBXML(document);
-        }
-        catch (IOException | ParserConfigurationException | SAXException ioException) {
+        } catch (IOException | ParserConfigurationException | SAXException ioException) {
             ioException.printStackTrace();
         }
     }
 
-    private static void SaveDBXML(Document dom){
+    private static void SaveDBXML(Document dom) {
         try {
             Transformer tr = TransformerFactory.newInstance().newTransformer();
             tr.setOutputProperty("method", "xml");
@@ -113,8 +110,7 @@ public class XMLizer {
             }
 
             tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(source)));
-        }
-        catch (TransformerException | IOException te) {
+        } catch (TransformerException | IOException te) {
             te.printStackTrace();
         }
 
@@ -136,7 +132,7 @@ public class XMLizer {
                     String dbUsername = eElement.getElementsByTagName("username").item(0).getTextContent();
                     String dbPassword = Crypta.decrypt(eElement.getElementsByTagName("password").item(0).getTextContent());
 
-                    dbList.add(new Database(dbFolder,dbConnection,dbUsername,dbPassword, dbActive));
+                    dbList.add(new Database(dbFolder, dbConnection, dbUsername, dbPassword, dbActive));
                 }
             }
             return dbList;
@@ -148,11 +144,11 @@ public class XMLizer {
 
     public static void setIsActiveAttribute(Database db, String value) {
         try {
-            if (!value.equalsIgnoreCase("true") && !value.equalsIgnoreCase("false") )
+            if (!value.equalsIgnoreCase("true") && !value.equalsIgnoreCase("false"))
                 return;
             Document document = dbf.newDocumentBuilder().parse(new File(source));
             NodeList matchedElementList = document.getElementsByTagName("database");
-            for (int i = 0 ; i < matchedElementList.getLength(); i++){
+            for (int i = 0; i < matchedElementList.getLength(); i++) {
                 Node xmlDB = matchedElementList.item(i);
                 if (xmlDB.getNodeType() == Node.ELEMENT_NODE) {
                     Node element = xmlDB.getAttributes().getNamedItem("isActive");
@@ -161,8 +157,7 @@ public class XMLizer {
                 }
             }
             SaveDBXML(document);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

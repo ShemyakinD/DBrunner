@@ -13,10 +13,18 @@
                   </content>
           </Tab>
           <Tab text="Статистика">
+              <content>
+                  <fx:include fx:id="infoTabPage" source="infoTabPage.fxml" />
+              </content>
           </Tab>
             <Tab text="Логи">
                 <content>
                     <fx:include fx:id="logTabPage" source="logTabPage.fxml" />
+                </content>
+            </Tab>
+            <Tab text="Файлы">
+                <content>
+                    <fx:include fx:id="filesTabPage" source="filesTabPage.fxml" />
                 </content>
             </Tab>
         </tabs>

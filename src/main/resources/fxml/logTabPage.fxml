@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" GridPane.columnIndex="1" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dcc360.Controllers.LogTabPageController">
         <children>
-            <TextArea fx:id="logBox" />
-      <Button layoutX="14.0" layoutY="200.0" mnemonicParsing="false" text="Button" fx:id="refreshLogs"/>
+            <GridPane layoutY="7.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES"  minWidth="10.0" prefWidth="477.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="123.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                    <TextArea fx:id="logBox" wrapText="true">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="15.0" top="10.0" />
+               </GridPane.margin></TextArea>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                          <Button fx:id="refreshLogs" mnemonicParsing="false" text="Обновить логи">
+                     <VBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </VBox.margin></Button>
+               </children>
+            </VBox>
+                </children>
+            </GridPane>
         </children>
 </AnchorPane>

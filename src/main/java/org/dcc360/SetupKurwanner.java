@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class SetupKurwanner {
@@ -16,7 +17,6 @@ public class SetupKurwanner {
     public static Properties getSetupProperties() {
         Properties properties = new Properties();
 
-//        try (InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("")) {
         try (InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("setup.properties")) {
             properties.load(io);
             for (Object propetry : properties.keySet())
@@ -38,9 +38,44 @@ public class SetupKurwanner {
 
     public static void InstallKurwanner() {
         for (Database db : XMLizer.getDBList()){
-            (new File(db.getFolder() + "\\Suckess")).mkdirs();
-            (new File(db.getFolder() + "\\Gavnino")).mkdirs();
+            prepareFolder(db);
         }
-
     }
+
+    public static void prepareFolder(Database db) {
+        (new File(db.getFolder() + "\\Success")).mkdirs();
+        (new File(db.getFolder() + "\\Fail")).mkdirs();
+    }
+
+    public static void dropDbFolder(Database db, boolean force) throws SetupException {
+        if (checkDbFolderContent(db.getFolder()) || force){
+                deleteFolder(db.getFolder());
+        }
+        else throw new SetupException("Каталог БД {"+ db.getName() +"} содержит внутри себя файлы.\nВы уверены, что хотите удалить каталог?");
+    }
+
+    private static boolean checkDbFolderContent(File folder){
+        File[] files = folder.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                 if (!file.isDirectory() || !checkDbFolderContent(file))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    private static void deleteFolder(File folder) throws SetupException{
+        if (folder.isDirectory()){
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    deleteFolder(file);
+                }
+            }
+        }
+        if (!folder.delete())
+            throw new SetupException("Ошибка удаления каталога: " + folder.getAbsolutePath() + "\n");
+    }
+
 }

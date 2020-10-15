@@ -2,7 +2,7 @@ package org.dcc360;
 
 import javafx.scene.control.CheckBox;
 
-public interface IDatabase {
+public interface IDatabaseUI {
 
     default void addSelectListener(Database database, CheckBox activeBox){
         activeBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {

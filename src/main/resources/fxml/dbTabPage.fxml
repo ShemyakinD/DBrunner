@@ -20,8 +20,8 @@
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         </columnConstraints>
                         <rowConstraints>
-                            <RowConstraints maxHeight="346.4" minHeight="10.0" prefHeight="334.4" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="175.4" minHeight="10.0" prefHeight="32.400000000000034" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="334.4" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="32.400000000000034" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <children>
                             <TableView fx:id="databaseTable" prefHeight="200.0" prefWidth="200.0">
@@ -42,15 +42,15 @@
                     </GridPane>
                     <GridPane GridPane.columnIndex="1">
                         <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         </columnConstraints>
                         <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <children>
                             <TextField fx:id="databaseName" layoutX="119.0" layoutY="14.0" GridPane.columnIndex="1" />
@@ -58,11 +58,11 @@
                             <TextField fx:id="databaseUser" layoutX="119.0" layoutY="108.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                             <PasswordField fx:id="databasePass" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             <Label text="Имя БД" />
-                            <Label text="Данные подключения" GridPane.rowIndex="1" />
+                            <Label text="Данные подключения&#10;hostname:1521/pdbName" GridPane.rowIndex="1" />
                             <Label text="Имя пользователя" GridPane.rowIndex="2" />
                             <Label text="Пароль" GridPane.rowIndex="3" />
-                            <Button fx:id="saveDBButton" mnemonicParsing="false" text="Сохранить" GridPane.rowIndex="4"/>
-                            <Button fx:id="testConnectionButton" mnemonicParsing="false" text="Тест соединения" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+                            <Button fx:id="saveDBButton" mnemonicParsing="false" text="Сохранить" GridPane.rowIndex="4" />
+                            <Button fx:id="testConnectionButton" mnemonicParsing="false" text="Тест соединения" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         </children>
                <GridPane.margin>
                   <Insets left="15.0" right="10.0" />

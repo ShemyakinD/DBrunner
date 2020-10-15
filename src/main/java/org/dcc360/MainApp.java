@@ -34,7 +34,7 @@ public class MainApp extends Application {
     public MainApp() {
     }
 
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
             stage.setTitle("KURWANNER2.0");

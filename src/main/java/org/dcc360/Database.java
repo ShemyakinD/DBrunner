@@ -1,12 +1,11 @@
 package org.dcc360;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
 import java.io.File;
 import java.util.Objects;
 
-public class Database implements IDatabase {
+public class Database {
     private File folder;
     private String connection;
     private String username;
@@ -26,16 +25,22 @@ public class Database implements IDatabase {
     }
 
     public Database(String name, String connection, String username, String password, Boolean isActive) {
-        this.folder = new File(name);
-        this.connection = connection;
-        this.username = username;
-        this.password = password;
-        this.isActive = isActive;
-
-        addSelectListener(this, select);
+        this(new File(name),connection,username,password,isActive);
+//        this.folder = new File(name);
+//        this.connection = connection;
+//        this.username = username;
+//        this.password = password;
+//        this.isActive = isActive;
+//
+//        addSelectListener(this, select);
     }
 
-
+    private void addSelectListener(Database database, CheckBox activeBox){
+        activeBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
+            aBoolean = !aBoolean;
+            XMLizer.setIsActiveAttribute(database, aBoolean.toString());
+        });
+    }
 
     public String getConnection() {
         return connection;
@@ -96,8 +101,6 @@ public class Database implements IDatabase {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Database database = (Database) o;
-        /*return connection.equals(database.connection) &&
-                username.equals(database.username);*/
         return getName().equals(database.getName());
     }
 
