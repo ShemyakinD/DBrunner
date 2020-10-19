@@ -13,34 +13,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 
 public class MainController implements Initializable {
-    // Inject tab content.
+    /*// Можно инжектировать содержимое со вкладок и контроллера
     @FXML
     private AnchorPane dbTabPage;
-    // Inject controller
     @FXML
     private DbTabPageController dbTabPageController;
-
-    // Inject tab content.
-    @FXML
-    private AnchorPane logTabPage;
-    // Inject controller
-    @FXML
-    private LogTabPageController logTabPageController;
-
-    // Inject tab content.
-    @FXML
-    private AnchorPane filesTabPage;
-    // Inject controller
-    @FXML
-    private FilesTabPageController filesTabPageController;
-
-    // Inject tab content.
-    @FXML
-    private AnchorPane infoTabPage;
-    // Inject controller
-    @FXML
-    private InfoTabPageController infoTabPageController;
-
+    */
     public void initialize(URL url, ResourceBundle rb) {
     }
 }

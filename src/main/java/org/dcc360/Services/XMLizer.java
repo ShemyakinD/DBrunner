@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package org.dcc360;
+package org.dcc360.Services;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.dcc360.Services.Crypta;
+import org.dcc360.Database;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -25,12 +25,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XMLizer {
-    private static String source = SetupKurwanner.geDBDir();
-    private static String installDir = SetupKurwanner.getInstallDir();
+    private static String source = SetupRunner.geDBDir();
+    private static String installDir = SetupRunner.getInstallDir();
     private static DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
-    public XMLizer() {
-    }
 
     public static void initDBDataToXML() {
         try {
@@ -104,7 +101,7 @@ public class XMLizer {
             Transformer tr = TransformerFactory.newInstance().newTransformer();
             tr.setOutputProperty("method", "xml");
             tr.setOutputProperty("encoding", "UTF-8");
-            if (!(new File(SetupKurwanner.geDBDir())).exists()) {
+            if (!(new File(SetupRunner.geDBDir())).exists()) {
                 (new File(source)).getParentFile().mkdirs();
                 (new File(source)).createNewFile();
             }

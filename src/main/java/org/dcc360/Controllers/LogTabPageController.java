@@ -1,14 +1,21 @@
 package org.dcc360.Controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
-import org.dcc360.SetupKurwanner;
+import org.dcc360.Services.Loggator;
+import org.dcc360.Services.SetupRunner;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
 
 public class LogTabPageController {
     @FXML
@@ -16,36 +23,49 @@ public class LogTabPageController {
     @FXML
     private Button refreshLogs;
 
+    @FXML
+    private ListView<String> logListView;
+
+    private static String logPath = SetupRunner.getInstallDir() + "log.txt";
+
     public void initialize() {
         try {
             logBox.setEditable(false);
-            logBox.appendText(getLogs());
+            logBox.appendText(getLogs(logPath));
+            logBox.setScrollTop(Double.MAX_VALUE);
+
+            logListView.setItems(readFileInList(logPath));
 
             refreshLogs.setOnAction(e -> {
                 logBox.clear();
-                logBox.appendText(getLogs());
-                logBox.setScrollTop(1.7976931348623157E308D);
+                logBox.appendText(getLogs(logPath));
+                logBox.setScrollTop(Double.MAX_VALUE);
+                logListView.setItems(readFileInList(logPath));
             });
         } catch (Exception e) {
             e.printStackTrace();
             logBox.appendText(e.getMessage());
         }
-        logBox.setScrollTop(1.7976931348623157E308D);
     }
 
-    private static String getLogs() {
+    private static String getLogs(String fileName) {
         try {
-            Scanner s = (new Scanner(new File(SetupKurwanner.getInstallDir() + "log.txt"), "UTF-8")).useDelimiter("\n\\d+-\\d+-\\d+");
-            StringBuilder textLogs = new StringBuilder();
+            return new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+        } catch (IOException ioe) {
+            Loggator.commonLog(Level.SEVERE,"Ошибка чтения файла с логами в каталоге " + fileName);
+            return ioe.getMessage();
+        }
+    }
 
-            while (s.hasNext()) {
-                textLogs.insert(0, "\n---------------\n").insert(0, s.findWithinHorizon("\\d+-\\d+", 0) + s.next());
-            }
-
-            return textLogs.toString();
-        } catch (FileNotFoundException var2) {
-            var2.printStackTrace();
-            return var2.getMessage();
+    public static ObservableList<String> readFileInList(String fileName) {
+        try {
+            List<String> logList =  Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
+            logList.removeAll(Arrays.asList("", null," "));
+            return FXCollections.observableArrayList( logList);
+        }
+        catch (IOException ioe) {
+            Loggator.commonLog(Level.SEVERE,"Ошибка чтения файла с логами в каталоге " + fileName);
+            return FXCollections.observableArrayList(ioe.getMessage());
         }
     }
 }

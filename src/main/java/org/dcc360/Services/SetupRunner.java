@@ -3,16 +3,17 @@
 // (powered by Fernflower decompiler)
 //
 
-package org.dcc360;
+package org.dcc360.Services;
+
+import org.dcc360.Database;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Properties;
+import java.util.logging.Level;
 
-public class SetupKurwanner {
+public class SetupRunner {
 
     public static Properties getSetupProperties() {
         Properties properties = new Properties();
@@ -50,8 +51,9 @@ public class SetupKurwanner {
     public static void dropDbFolder(Database db, boolean force) throws SetupException {
         if (checkDbFolderContent(db.getFolder()) || force){
                 deleteFolder(db.getFolder());
+            Loggator.commonLog(Level.INFO,"Каталог " + db.getFolder().getAbsolutePath() + " успешно удалён");
         }
-        else throw new SetupException("Каталог БД {"+ db.getName() +"} содержит внутри себя файлы.\nВы уверены, что хотите удалить каталог?");
+        else throw new SetupException("Каталог БД {"+ db.getName() +"} содержит внутри себя файлы.\nВы уверены, что хотите удалить каталог?", Level.WARNING);
     }
 
     private static boolean checkDbFolderContent(File folder){

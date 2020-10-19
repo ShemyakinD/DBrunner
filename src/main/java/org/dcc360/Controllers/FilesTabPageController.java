@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.dcc360.Services.Loggator;
-import org.dcc360.SetupKurwanner;
+import org.dcc360.Services.SetupRunner;
 
 import java.io.File;
 import java.nio.file.*;
@@ -32,7 +32,7 @@ public class FilesTabPageController {
     }
 
     public void setFilesDBTree() {
-        filesTreeView.setRoot(getDBDirectories(new File(SetupKurwanner.getInstallDir())));
+        filesTreeView.setRoot(getDBDirectories(new File(SetupRunner.getInstallDir())));
     }
 
     private static TreeItem<String> getDBDirectories(File rootDirectory) {
@@ -62,7 +62,7 @@ public class FilesTabPageController {
             WatchService watchService
                     = FileSystems.getDefault().newWatchService();
 
-            Path path = Paths.get(SetupKurwanner.getInstallDir());
+            Path path = Paths.get(SetupRunner.getInstallDir());
 
             path.register(
                     watchService,

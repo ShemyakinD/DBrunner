@@ -3,7 +3,6 @@ package org.dcc360.Services;
 import org.apache.ibatis.jdbc.RuntimeSqlException;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.dcc360.Database;
-import org.dcc360.XMLizer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -75,7 +74,6 @@ public class Engine {
             sr.setSendFullScript(true);
             try (BufferedReader reader = new BufferedReader(new FileReader(runFile))) {
                 sr.runScript(reader);
-                sr.closeConnection();
             }
             catch (IOException  ioe){
                 Loggator.commonLog(Level.WARNING,"Ошибка чтения файла " + runFile.getAbsolutePath());
@@ -84,13 +82,13 @@ public class Engine {
                 throw new SQLException(rsqle);
             }
             Loggator.execLog(Level.INFO, db.getName(), "Файл " + runFile.getName() + " успешно обработан.");
-            runFile.renameTo(new File(db.getFolder() + "\\Suckess\\" + runFile.getName()));
+            runFile.renameTo(new File(db.getFolder() + "\\Success\\" + runFile.getName()));
             runFile.delete();
         }
         catch (SQLException sqle) {
             if (!sqle.getMessage().matches("ORA-04021")) {
                 Loggator.execLog(Level.WARNING, db.getName(), runFile.getName() + "\n\t" + sqle.getMessage());
-                runFile.renameTo(new File(db.getFolder() + "\\Gavnino\\" + runFile.getName()));
+                runFile.renameTo(new File(db.getFolder() + "\\Fail\\" + runFile.getName()));
                 runFile.delete();
             } else {
                 Loggator.execLog(Level.WARNING, db.getName(), "Файл " + runFile.getName() + " содержит объект, который сейчас заблокирован.\n\t" + sqle.getMessage());

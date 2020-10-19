@@ -9,9 +9,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import org.dcc360.Database;
 import org.dcc360.Services.Engine;
-import org.dcc360.SetupException;
-import org.dcc360.SetupKurwanner;
-import org.dcc360.XMLizer;
+import org.dcc360.Services.SetupException;
+import org.dcc360.Services.SetupRunner;
+import org.dcc360.Services.XMLizer;
 
 public class DbTabPageController {
 
@@ -65,7 +65,7 @@ public class DbTabPageController {
         deleteDBButton.setOnAction(e -> {
             Database selectedDatabase = databaseTable.getSelectionModel().getSelectedItem();
             try {
-                SetupKurwanner.dropDbFolder(selectedDatabase, false);
+                SetupRunner.dropDbFolder(selectedDatabase, false);
                 XMLizer.deleteDB(selectedDatabase);
                 databaseTable.getItems().remove(selectedDatabase);
             }
@@ -88,7 +88,7 @@ public class DbTabPageController {
                 showAlertSaveDB(false);
             } else {
                 XMLizer.createDB(newDB);
-                SetupKurwanner.prepareFolder(newDB);
+                SetupRunner.prepareFolder(newDB);
                 refreshDBTable();
                 showAlertSaveDB(true);
             }
@@ -110,20 +110,6 @@ public class DbTabPageController {
         databaseTable.setItems(databaseData);
     }
 
-    private void showAlertTestConnection(boolean testResult) {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Проверка соединения с БД");
-        alert.setHeaderText("Результат:");
-        if (testResult) {
-            alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.setContentText("Соединение успешно установлено!");
-        } else {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Ошибка соединения с базой данных");
-        }
-        alert.showAndWait();
-    }
-
     private boolean checkDBExistence(Database database) {
         for (Database db : databaseTable.getItems()) {
             if (db.equals(database))
@@ -132,35 +118,45 @@ public class DbTabPageController {
         return false;
     }
 
-    private void showAlertSaveDB(boolean result) {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Создание записи о БД");
-        alert.setHeaderText("Результат:");
-        if (result) {
-            alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.setContentText("Запись успешно создана!");
+    private void showAlertTestConnection(boolean testResult) {
+        if (testResult) {
+            getDBViewAlert(Alert.AlertType.INFORMATION,"Проверка соединения с БД","Результат:","Соединение успешно установлено!").showAndWait();
         } else {
-            alert.setAlertType(Alert.AlertType.WARNING);
-            alert.setContentText("Данное имя уже используется! Перезаписана существующая запись");
+            getDBViewAlert(Alert.AlertType.ERROR,"Проверка соединения с БД","Результат:","Ошибка соединения с базой данных").showAndWait();
         }
-        alert.showAndWait();
+    }
+
+    private void showAlertSaveDB(boolean result) {
+        if (result) {
+            getDBViewAlert(Alert.AlertType.INFORMATION,"Создание записи о БД","Результат:","Запись успешно создана!").showAndWait();
+        } else {
+            getDBViewAlert(Alert.AlertType.WARNING,"Создание записи о БД","Результат:","Данное имя уже используется! Перезаписана существующая запись").showAndWait();
+        }
     }
 
     private void showConfiramationDeleteAlert(Database db, String message){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Удаление записи " + db.getName());
-        alert.setHeaderText(message);
+        Alert alert = getDBViewAlert(Alert.AlertType.CONFIRMATION,"Удаление записи " + db.getName(),message,null);
         ButtonType okButton = new ButtonType("Да", ButtonBar.ButtonData.YES);
         ButtonType noButton = new ButtonType("Нет", ButtonBar.ButtonData.NO);
         alert.getButtonTypes().setAll(okButton, noButton);
         alert.showAndWait().ifPresent(type -> {
-            if (type == ButtonType.YES) {
+            if (type.getText() == "Да") {
                 try {
-                    SetupKurwanner.dropDbFolder(db,true);
+                    SetupRunner.dropDbFolder(db,true);
+                    XMLizer.deleteDB(db);
+                    databaseTable.getItems().remove(db);
                 }
                 catch (SetupException se){
                 }
             }
         });
+    }
+
+    private Alert getDBViewAlert(Alert.AlertType type, String title, String header, String content){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        return alert;
     }
 }

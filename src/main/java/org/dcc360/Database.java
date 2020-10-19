@@ -1,6 +1,8 @@
 package org.dcc360;
 
 import javafx.scene.control.CheckBox;
+import org.dcc360.Services.SetupRunner;
+import org.dcc360.Services.XMLizer;
 
 import java.io.File;
 import java.util.Objects;
@@ -25,14 +27,7 @@ public class Database {
     }
 
     public Database(String name, String connection, String username, String password, Boolean isActive) {
-        this(new File(name),connection,username,password,isActive);
-//        this.folder = new File(name);
-//        this.connection = connection;
-//        this.username = username;
-//        this.password = password;
-//        this.isActive = isActive;
-//
-//        addSelectListener(this, select);
+        this(new File(SetupRunner.getInstallDir() + name),connection,username,password,isActive);
     }
 
     private void addSelectListener(Database database, CheckBox activeBox){

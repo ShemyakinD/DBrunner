@@ -6,21 +6,7 @@
 package org.dcc360;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +14,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.dcc360.Services.Engine;
+import org.dcc360.Services.Loggator;
+import org.dcc360.Services.SetupRunner;
+import org.dcc360.Services.XMLizer;
 
 public class MainApp extends Application {
 
@@ -55,11 +44,13 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-        if (!(new File(SetupKurwanner.geDBDir())).exists()) {
+        if (!(new File(SetupRunner.geDBDir())).exists()) {
             XMLizer.writeDBDataToXML();
         }
 
-        SetupKurwanner.InstallKurwanner();
+        Loggator.init();
+
+        SetupRunner.InstallKurwanner();
 
         Engine.startEngine();
 

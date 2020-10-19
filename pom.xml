@@ -82,7 +82,6 @@
                 <executions>
                     <execution>
                         <id>unpack-dependencies</id>
-
                         <phase>package</phase>
                         <goals>
                             <goal>exec</goal>
@@ -142,7 +141,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>MainApp</mainClass>
+                    <mainClass>org.dcc360.MainApp</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -150,7 +149,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.8.3</version>
                 <configuration>
-                    <mainClass>MainApp</mainClass>
+                    <mainClass>org.dcc360.MainApp</mainClass>
                 </configuration>
                 <executions>
                     <execution>
