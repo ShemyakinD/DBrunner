@@ -23,7 +23,7 @@ public class SetupRunner {
             for (Object propetry : properties.keySet())
             properties.put(propetry, properties.getProperty(propetry.toString()).replace("{user.home}", System.getProperty("user.home")));
         } catch (IOException ioe) {
-            System.out.println("Error initialize project properties " + ioe.getMessage());
+            System.out.println("Ошибка считывания свойств " + ioe.getMessage());
             return null;
         }
         return properties;
