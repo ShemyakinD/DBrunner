@@ -24,7 +24,7 @@ public class Crypta {
 
     private static void setKey() {
         try {
-            String myKey = "Ti_4e_ne_smotri";
+            String myKey = "Ti_4e_ne_smotri2312";
             key = myKey.getBytes("UTF-8");
             MessageDigest sha = MessageDigest.getInstance("SHA-1");
             key = Arrays.copyOf(sha.digest(key), 16);
