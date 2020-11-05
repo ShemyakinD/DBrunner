@@ -104,4 +104,12 @@ public class Database {
         return Objects.hash(connection, username);
     }
 
+    @Override
+    public String toString() {
+        return "Database{" +
+                "name=" + getName() +
+                ", connection='" + connection + '\'' +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

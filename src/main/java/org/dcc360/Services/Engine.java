@@ -75,6 +75,7 @@ public class Engine {
             try (BufferedReader reader = new BufferedReader(new FileReader(runFile))) {
                 sr.runScript(reader);
                 Loggator.execLog(Level.INFO, db.getName(), "Файл " + runFile.getName() + " успешно обработан.");
+                reader.close();
                 runFile.renameTo(new File(db.getFolder() + "\\Success\\" + runFile.getName()));
                 runFile.delete();
             }

@@ -8,6 +8,7 @@ package org.dcc360.Services;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -73,7 +74,9 @@ public class XMLizer {
             dom.getElementsByTagName("Databases").item(0).appendChild(db);
             dom.getDocumentElement().normalize();
             SaveDBXML(dom);
+            Loggator.commonLog(Level.INFO,"Добавлена запись о БД " + database.toString());
         } catch (Exception e) {
+            Loggator.commonLog(Level.SEVERE,"Ошибка записи параметров БД");
             e.printStackTrace();
         }
     }
@@ -105,7 +108,6 @@ public class XMLizer {
                 (new File(source)).getParentFile().mkdirs();
                 (new File(source)).createNewFile();
             }
-
             tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(source)));
         } catch (TransformerException | IOException te) {
             te.printStackTrace();
@@ -134,7 +136,8 @@ public class XMLizer {
             }
             return dbList;
         } catch (Exception e) {
-            System.out.println("Error read DB's list " + e.getMessage());
+            Loggator.commonLog(Level.SEVERE,"Ошибка считывая списка БД " + e.getMessage());
+            System.out.println("Ошибка считывая списка БД " + e.getMessage());
             return null;
         }
     }
@@ -154,7 +157,9 @@ public class XMLizer {
                 }
             }
             SaveDBXML(document);
+            Loggator.commonLog(Level.INFO,"Базе данных " + db.getName() + " установлен флаг активности: " + value);
         } catch (Exception e) {
+            Loggator.commonLog(Level.WARNING,"Ошибка установки флага активности БД " + db.getName() + "\n" + e.getMessage());
             e.printStackTrace();
         }
     }

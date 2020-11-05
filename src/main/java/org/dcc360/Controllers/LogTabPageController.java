@@ -6,8 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import org.dcc360.Database;
 import org.dcc360.Services.Loggator;
 import org.dcc360.Services.SetupRunner;
 
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 public class LogTabPageController {
     @FXML
@@ -40,10 +37,6 @@ public class LogTabPageController {
             ObservableList<Level> logLevels = FXCollections.observableArrayList(Level.ALL, Level.SEVERE, Level.WARNING, Level.INFO);
             logLevelBox.setItems(logLevels);
             logLevelBox.getSelectionModel().selectFirst();
-            /*logBox.setEditable(false);
-            logBox.appendText(getLogs(logPath));
-            logBox.setScrollTop(Double.MAX_VALUE);*/
-
             logListView.setItems(readFileInList(logPath, logLevelBox.getValue()));
 
             logLevelBox.setOnAction(e -> {
@@ -89,7 +82,6 @@ public class LogTabPageController {
                             output = true;
                         else output = false;
                     }
-
                     if (output)
                         resultLogList.add(logRow);
                 }
