@@ -3,9 +3,11 @@ package org.dcc360.Controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import org.dcc360.MyAlert;
 import org.dcc360.Services.Loggator;
 import org.dcc360.Services.SetupRunner;
 
@@ -49,8 +51,12 @@ public class LogTabPageController {
                 }
                 catch (IOException ioe){
                     Loggator.commonLog(Level.SEVERE,"Ошибка открытия файла с логами " + logPath);
+                    MyAlert.showMyAlert(Alert.AlertType.ERROR,"Ошибка открытия файла с логами!","Ошибка работы с файлом:",logPath);
                 }
-
+                catch (NullPointerException npe){
+                    Loggator.commonLog(Level.SEVERE,"Ошибка открытия файла с логами " + logPath+"\nФайл отсутствует.");
+                    MyAlert.showMyAlert(Alert.AlertType.ERROR,"Ошибка открытия файла с логами!","Ошибка работы с файлом. Проверьте наличие файла логов:",logPath);
+                }
             });
 
             refreshLogsButton.setOnAction(e -> {

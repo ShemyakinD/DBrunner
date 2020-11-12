@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import org.dcc360.Database;
+import org.dcc360.MyAlert;
 import org.dcc360.Services.Engine;
 import org.dcc360.Services.SetupException;
 import org.dcc360.Services.SetupRunner;
@@ -120,22 +121,27 @@ public class DbTabPageController {
 
     private void showAlertTestConnection(boolean testResult) {
         if (testResult) {
-            getDBViewAlert(Alert.AlertType.INFORMATION,"Проверка соединения с БД","Результат:","Соединение успешно установлено!").showAndWait();
+            MyAlert.showMyAlert(Alert.AlertType.INFORMATION,"Проверка соединения с БД","Результат:","Соединение успешно установлено!");
+//            getDBViewAlert(Alert.AlertType.INFORMATION,"Проверка соединения с БД","Результат:","Соединение успешно установлено!").showAndWait();
         } else {
-            getDBViewAlert(Alert.AlertType.ERROR,"Проверка соединения с БД","Результат:","Ошибка соединения с базой данных").showAndWait();
+            MyAlert.showMyAlert(Alert.AlertType.ERROR,"Проверка соединения с БД","Результат:","Ошибка соединения с базой данных");
+//            getDBViewAlert().showAndWait();
         }
     }
 
     private void showAlertSaveDB(boolean result) {
         if (result) {
-            getDBViewAlert(Alert.AlertType.INFORMATION,"Создание записи о БД","Результат:","Запись успешно создана!").showAndWait();
+            MyAlert.showMyAlert(Alert.AlertType.INFORMATION,"Создание записи о БД","Результат:","Запись успешно создана!");
+//            getDBViewAlert().showAndWait();
         } else {
-            getDBViewAlert(Alert.AlertType.WARNING,"Создание записи о БД","Результат:","Данное имя уже используется! Перезаписана существующая запись").showAndWait();
+            MyAlert.showMyAlert(Alert.AlertType.WARNING,"Создание записи о БД","Результат:","Данное имя уже используется! Перезаписана существующая запись");
+//            getDBViewAlert().showAndWait();
         }
     }
 
     private void showConfiramationDeleteAlert(Database db, String message){
-        Alert alert = getDBViewAlert(Alert.AlertType.CONFIRMATION,"Удаление записи " + db.getName(),message,null);
+        MyAlert alert = new MyAlert(Alert.AlertType.CONFIRMATION,"Удаление записи " + db.getName(),message,null);
+//        Alert alert = getDBViewAlert(Alert.AlertType.CONFIRMATION,"Удаление записи " + db.getName(),message,null);
         ButtonType okButton = new ButtonType("Да", ButtonBar.ButtonData.YES);
         ButtonType noButton = new ButtonType("Нет", ButtonBar.ButtonData.NO);
         alert.getButtonTypes().setAll(okButton, noButton);
@@ -152,11 +158,11 @@ public class DbTabPageController {
         });
     }
 
-    private Alert getDBViewAlert(Alert.AlertType type, String title, String header, String content){
+/*    private Alert getDBViewAlert(Alert.AlertType type, String title, String header, String content){
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
         return alert;
-    }
+    }*/
 }

@@ -6,6 +6,7 @@
 package org.dcc360;
 
 import java.io.File;
+import java.util.logging.Level;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -26,7 +27,7 @@ public class MainApp extends Application {
     public void start(Stage stage){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-            stage.setTitle("KURWANNER2.0");
+            stage.setTitle("DBRunner2.0");
             stage.setScene(new Scene(root, 600.0D, 300.0D));
             stage.setMinHeight(300D);
             stage.setMinWidth(600D);
@@ -38,6 +39,7 @@ public class MainApp extends Application {
     }
 
     public void stop() {
+        Loggator.commonLog(Level.INFO,"Завершение работы программы!");
         Engine.service.shutdown();
         Platform.exit();
         System.exit(0);
@@ -51,6 +53,8 @@ public class MainApp extends Application {
         Loggator.init();
 
         SetupRunner.InstallKurwanner();
+
+        Loggator.commonLog(Level.INFO,"Запуск программы DBRunner!");
 
         Engine.startEngine();
 

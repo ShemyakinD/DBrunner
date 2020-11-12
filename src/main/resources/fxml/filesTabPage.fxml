@@ -6,9 +6,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" GridPane.columnIndex="1" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dcc360.Controllers.FilesTabPageController">
    <children>
-      <GridPane prefHeight="400.0" prefWidth="600.0">
+      <GridPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.0" minWidth="10.0" prefWidth="450.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="450.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="150.0" />
         </columnConstraints>
         <rowConstraints>
@@ -25,7 +25,12 @@
             </TreeView>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                <children>
-                  <Button mnemonicParsing="false" text="Обновить" fx:id="refreshFilesList">
+                  <Button fx:id="refreshFilesListButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Обновить">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="openDbFileButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Открыть">
                      <VBox.margin>
                         <Insets left="15.0" right="15.0" top="10.0" />
                      </VBox.margin>
