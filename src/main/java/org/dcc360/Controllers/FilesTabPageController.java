@@ -6,7 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import org.dcc360.MyAlert;
+import org.dcc360.Entities.MyAlert;
 import org.dcc360.Services.Loggator;
 import org.dcc360.Services.SetupRunner;
 
@@ -49,7 +49,14 @@ public class FilesTabPageController {
                 MyAlert.showMyAlert(Alert.AlertType.ERROR,"Ошибка открытия файла!","Не получилось открыть файл!",null);
             }
             catch (NullPointerException npe){
-                MyAlert.showMyAlert(Alert.AlertType.ERROR,"Ошибка открытия файла!","Не получилось открыть файл!\nПроверьте, что он выбран в списке.",null);
+                try {
+                    Desktop.getDesktop().open(new File(SetupRunner.getInstallDir()));
+                }
+                catch (IOException ioe){
+                    Loggator.commonLog(Level.WARNING,"Ошибка открытия каталога " + SetupRunner.getInstallDir());
+                    MyAlert.showMyAlert(Alert.AlertType.ERROR,"Ошибка открытия корневого каталога!","Не получилось открыть корневой каталог!",null);
+                }
+//                MyAlert.showMyAlert(Alert.AlertType.ERROR,"Ошибка открытия файла!","Не получилось открыть файл!\nПроверьте, что он выбран в списке.",null);
             }
         });
     }

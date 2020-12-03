@@ -2,12 +2,9 @@ package org.dcc360.Services;
 
 import org.apache.ibatis.jdbc.RuntimeSqlException;
 import org.apache.ibatis.jdbc.ScriptRunner;
-import org.dcc360.Database;
+import org.dcc360.Entities.Database;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.List;

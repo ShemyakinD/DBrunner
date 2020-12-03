@@ -1,4 +1,4 @@
-package org.dcc360;
+package org.dcc360.Entities;
 
 import javafx.scene.control.Alert;
 

@@ -7,10 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
-import org.dcc360.Database;
-import org.dcc360.MyAlert;
+import org.dcc360.Entities.Database;
+import org.dcc360.Entities.MyAlert;
 import org.dcc360.Services.Engine;
-import org.dcc360.Services.SetupException;
+import org.dcc360.Entities.SetupException;
 import org.dcc360.Services.SetupRunner;
 import org.dcc360.Services.XMLizer;
 

@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import org.dcc360.MyAlert;
+import org.dcc360.Entities.MyAlert;
 import org.dcc360.Services.Loggator;
 import org.dcc360.Services.SetupRunner;
 

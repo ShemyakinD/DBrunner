@@ -1,13 +1,15 @@
-package org.dcc360.Services;
+package org.dcc360.Entities;
+
+import org.dcc360.Services.Loggator;
 
 import java.util.logging.Level;
 
 public class SetupException extends Exception {
-    SetupException(String errorMessage){
+    public SetupException(String errorMessage){
         super(errorMessage);
         Loggator.commonLog(Level.SEVERE,errorMessage);
     }
-    SetupException(String errorMessage, Level level){
+    public SetupException(String errorMessage, Level level){
         super(errorMessage);
         Loggator.commonLog(level,errorMessage);
     }

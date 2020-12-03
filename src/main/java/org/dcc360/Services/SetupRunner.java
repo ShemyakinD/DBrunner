@@ -5,7 +5,8 @@
 
 package org.dcc360.Services;
 
-import org.dcc360.Database;
+import org.dcc360.Entities.Database;
+import org.dcc360.Entities.SetupException;
 
 import java.io.File;
 import java.io.IOException;

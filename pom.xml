@@ -42,77 +42,7 @@
     </dependencies>
 
     <build>
-
-        <!--<resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>setup.properties</exclude>
-                </excludes>
-            </resource>
-        </resources>-->
-
         <plugins>
-
-<!--            <plugin>-->
-<!--                <artifactId>maven-antrun-plugin</artifactId>-->
-<!--                <version>1.6</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>generate-resources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>run</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <tasks>-->
-<!--                                <mkdir dir="${project.build.directory}"/>-->
-<!--                                <copy file="${basedir}/src/main/resources/properties/config.properties" tofile="${project.build.directory}/jfx/app/setup.properties"/>-->
-<!--                            </tasks>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <executions>
-                    <execution>
-                        <id>unpack-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${java.home}/../bin/javafxpackager</executable>
-                            <arguments>
-                                <argument>-createjar</argument>
-                                <argument>-nocss2bin</argument>
-                                <argument>-appclass</argument>
-                                <argument>${mainClass}</argument>
-                                <argument>-srcdir</argument>
-                                <argument>${project.build.directory}/classes</argument>
-                                <argument>-outdir</argument>
-                                <argument>${project.build.directory}</argument>
-                                <argument>-outfile</argument>
-                                <argument>${project.build.finalName}.jar</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-cli</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${java.home}/bin/java</executable>
-                            <commandlineArgs>${runfx.args}</commandlineArgs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -120,19 +50,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-              <!--      <compilerArguments>
-                        <bootclasspath>${sun.boot.class.path}${path.separator}${java.home}/lib/jfxrt.jar</bootclasspath>
-                    </compilerArguments>-->
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.16</version>
-                <configuration>
-                    <additionalClasspathElements>
-                        <additionalClasspathElement>${java.home}/lib/jfxrt.jar</additionalClasspathElement>
-                    </additionalClasspathElements>
                 </configuration>
             </plugin>
             <plugin>
@@ -150,13 +67,6 @@
                 <configuration>
                     <mainClass>org.dcc360.MainApp</mainClass>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>
-                            package
-                        </phase>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

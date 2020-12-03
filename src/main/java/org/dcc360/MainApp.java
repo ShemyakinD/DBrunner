@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package org.dcc360;
 
 import java.io.File;
@@ -20,9 +15,6 @@ import org.dcc360.Services.SetupRunner;
 import org.dcc360.Services.XMLizer;
 
 public class MainApp extends Application {
-
-    public MainApp() {
-    }
 
     public void start(Stage stage){
         try {
